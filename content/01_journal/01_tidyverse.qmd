@@ -2,15 +2,7 @@
 title: "01 Intro to the tidyverse"
 author: "Ehssan Roshankar"
 date: "2023-04-25"
-output:
-  html_document:
-    toc: true
-    toc_float: true
-    df_print: paged
-    collapsed: false
-    number_sections: true
-    toc_depth: 3
-    code_folding: hide
+
 ---
 
 ```{r setup, include=FALSE}
@@ -88,9 +80,6 @@ bike_orderlines_wrangled_tbl <- bike_orderlines_joined_tbl %>%
 
 ```
 
-## Business Insights
-### Sales by Location
-
 #### Step 1: Manipulation
 ```{r}
 sales_by_loc_tbl <- bike_orderlines_wrangled_tbl %>%
@@ -106,7 +95,7 @@ sales_by_loc_tbl <- bike_orderlines_wrangled_tbl %>%
                                      suffix = " €"))
 ```
 
-#### Step 2: Visualization
+#### Step 2: Vis
 ```{r, plot, fig.width=11, fig.height=8, fig.cap = "Sales by state"}
 sales_by_loc_tbl %>%
   
@@ -144,7 +133,7 @@ sales_by_year_loc_tbl <- bike_orderlines_wrangled_tbl %>%
                                      suffix = " €"))
 ```
 
-#### Step 2: Visualization
+#### Step 2: Vis
 ```{r, plot2, fig.width=11, fig.height=8, fig.cap = "Sales by state and year"}
 sales_by_year_loc_tbl %>%
 
