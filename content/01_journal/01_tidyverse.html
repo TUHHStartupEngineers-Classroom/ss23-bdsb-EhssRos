@@ -164,7 +164,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <a href="#challenge1-intro-to-the-tidyverse" id="toc-challenge1-intro-to-the-tidyverse" class="nav-link active" data-scroll-target="#challenge1-intro-to-the-tidyverse"><span class="header-section-number">1</span> Challenge1: Intro to the tidyverse</a>
   <ul class="collapse">
 <li><a href="#preparation" id="toc-preparation" class="nav-link" data-scroll-target="#preparation"><span class="header-section-number">1.1</span> Preparation</a></li>
-  <li><a href="#business-insights" id="toc-business-insights" class="nav-link" data-scroll-target="#business-insights"><span class="header-section-number">1.2</span> Business Insights</a></li>
   </ul>
 </li>
   </ul></nav>
@@ -260,9 +259,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-34"><a href="#cb6-34"></a>  <span class="fu">rename</span>(<span class="at">bikeshop =</span> name) <span class="sc">%&gt;%</span></span>
 <span id="cb6-35"><a href="#cb6-35"></a>  <span class="fu">set_names</span>(<span class="fu">names</span>(.) <span class="sc">%&gt;%</span> <span class="fu">str_replace_all</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">."</span>, <span class="st">"_"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="business-insights" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="business-insights">
-<span class="header-section-number">1.2</span> Business Insights</h2>
-<section id="sales-by-location" class="level3"><h3 class="anchored" data-anchor-id="sales-by-location">Sales by Location</h3>
 <section id="step-1-manipulation" class="level4"><h4 class="anchored" data-anchor-id="step-1-manipulation">Step 1: Manipulation</h4>
 <div class="cell" data-hash="01_tidyverse_cache/html/unnamed-chunk-5_5cac228891402a50210ad272508dc5d3">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>sales_by_loc_tbl <span class="ot">&lt;-</span> bike_orderlines_wrangled_tbl <span class="sc">%&gt;%</span></span>
@@ -277,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-10"><a href="#cb7-10"></a>                                     <span class="at">prefix =</span> <span class="st">""</span>, </span>
 <span id="cb7-11"><a href="#cb7-11"></a>                                     <span class="at">suffix =</span> <span class="st">" €"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="step-2-visualization" class="level4"><h4 class="anchored" data-anchor-id="step-2-visualization">Step 2: Visualization</h4>
+</section><section id="step-2-vis" class="level4"><h4 class="anchored" data-anchor-id="step-2-vis">Step 2: Vis</h4>
 <div class="cell" data-hash="01_tidyverse_cache/html/plot_e5710d78762450760e5b7fe5363a5557">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>sales_by_loc_tbl <span class="sc">%&gt;%</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a>  </span>
@@ -322,7 +318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #&gt; `.groups` argument.</code></pre>
 </div>
 </div>
-</section><section id="step-2-visualization-1" class="level4"><h4 class="anchored" data-anchor-id="step-2-visualization-1">Step 2: Visualization</h4>
+</section><section id="step-2-vis-1" class="level4"><h4 class="anchored" data-anchor-id="step-2-vis-1">Step 2: Vis</h4>
 <div class="cell" data-hash="01_tidyverse_cache/html/plot2_0f6c994cc08da6d6bd38dbeaeeafeb74">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>sales_by_year_loc_tbl <span class="sc">%&gt;%</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a></span>
@@ -704,7 +700,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"loop":true,"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","openEffect":"zoom","loop":true,"selector":".lightbox","descPosition":"bottom"});</script>
 
 
 </body></html>
