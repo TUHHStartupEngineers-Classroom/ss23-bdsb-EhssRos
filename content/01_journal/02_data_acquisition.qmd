@@ -6,10 +6,10 @@ author: "Ehssan Roshankar "
 ## import
 ```{r}
 
-library(tidyverse) # Main Package - Loads dplyr, purrr, etc.
-library(rvest)     # HTML Hacking & Web Scraping
-library(xopen)     # Quickly opening URLs
-library(jsonlite)  # converts JSON files to R objects
+library(tidyverse) 
+library(rvest)     
+library(xopen)     
+library(jsonlite)  
 library(glue)      # concatenate strings
 library(stringi)   # character string/text processing
 library(httr)
@@ -32,6 +32,47 @@ get_weather_data <- function(location) {
   print(as_tibble(extracted_data))
 }
 
-# Example usage
+
 weather_data <- get_weather_data("Hamburg")
+
+
 ```
+
+
+```{r}
+
+
+scrape_bikes <- function(url) {
+  page <- read_html(url)
+  bikes <- page %>% html_nodes('.catalog-category-bikes__content')
+  model_prices <- data.frame(model = character(), price = numeric())
+  for (bike in bikes) {
+    model <- bike %>% 
+      html_node('.basic-headline__title') %>% 
+      html_text(trim = TRUE)
+    price <- bike %>% 
+      html_node('.catalog-category-bikes__price-title') %>% 
+      html_text(trim = TRUE) %>% 
+      stringr::str_extract("[0-9.,]+\\,[0-9,]+|[0-9,]+") %>%   #
+      stringr::str_replace_all("[.,]", "") %>%  
+      as.numeric()
+    model_prices <- rbind(model_prices, data.frame(model = model, price = price/100))
+  }
+  return(model_prices)
+}
+
+# URLs different bike categories
+urls <- c(
+  'https://www.rosebikes.de/fahrr%C3%A4der/mtb',
+  'https://www.rosebikes.de/fahrr%C3%A4der/rennrad',
+  'https://www.rosebikes.de/fahrr%C3%A4der/gravel'
+)
+
+# Scrape bike data 
+bike_data <- map_dfr(urls, scrape_bikes, .id = 'category')
+
+bike_data <- as_tibble(bike_data)
+print(bike_data)
+```
+
+
