@@ -100,4 +100,29 @@ uspc <- vroom(
   col_types  = ct3,
   na         = c("", "NA", "NULL")
 )
+
+
+patent_assignee_uspc <- assignee_patent %>%
+  left_join(uspc)
+
+
+
+patents_top10 <- patent_assignee_uspc %>%
+  filter( !is.na(organization)) %>%
+  group_by(organization) %>%
+  summarise(count = n()) %>%
+  ungroup() %>%
+  arrange(desc(count)) %>%  
+  head(n = 10)
+patents_top10
+#business machines
+top5 <- patent_assignee_uspc_joined_tbl %>%
+  filter( organization %in% patents_top10$organization,  !is.na(mainclass_id)) %>%
+  group_by(mainclass_id) %>%
+  summarise(count_class = n()) %>%
+  ungroup() %>%
+  arrange(desc(count_class)) %>%  
+  select(mainclass_id) %>%
+  head(n = 5)
+top5
 ```
