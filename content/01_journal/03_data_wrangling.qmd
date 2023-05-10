@@ -116,7 +116,7 @@ patents_top10 <- patent_assignee_uspc %>%
   head(n = 10)
 patents_top10
 #business machines
-top5 <- patent_assignee_uspc_joined_tbl %>%
+top5 <- patent_assignee_uspc %>%
   filter( organization %in% patents_top10$organization,  !is.na(mainclass_id)) %>%
   group_by(mainclass_id) %>%
   summarise(count_class = n()) %>%
