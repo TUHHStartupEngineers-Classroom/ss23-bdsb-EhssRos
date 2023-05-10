@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
-
+<meta name="generator" content="quarto-1.3.336">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-<meta name="author" content="Joschka Schwarz">
-
+<meta name="author" content="Ehssan Roshankar">
 <title>MyLabJournal - Data Wrangling</title>
 <style>
 code{white-space: pre-wrap;}
@@ -18,11 +15,44 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
-
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
@@ -42,8 +72,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script id="quarto-search-options" type="application/json">{
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -61,83 +90,73 @@ ul.task-list li input[type="checkbox"] {
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit"
   }
-}</script>
-
-
+}</script><link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 </head>
-
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">MyLabJournal</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../../index.html">
+<li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-journal" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-journal" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Journal</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-journal">    
-        <li>
-    <a class="dropdown-item" href="../../content/01_journal/01_tidyverse.html">
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-journal">
+<li>
+    <a class="dropdown-item" href="../../content/01_journal/01_tidyverse.html" rel="" target="">
  <span class="dropdown-text">01 Tidyverse</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/01_journal/02_data_acquisition.html">
+    <a class="dropdown-item" href="../../content/01_journal/02_data_acquisition.html" rel="" target="">
  <span class="dropdown-text">02 Data Acquisition</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/01_journal/03_data_wrangling.html">
+    <a class="dropdown-item" href="../../content/01_journal/03_data_wrangling.html" rel="" target="">
  <span class="dropdown-text">03 Data Wrangling</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/01_journal/04_data_visualization.html">
+    <a class="dropdown-item" href="../../content/01_journal/04_data_visualization.html" rel="" target="">
  <span class="dropdown-text">04 Data Visualization</span></a>
   </li>  
     </ul>
-  </li>
+</li>
   <li class="nav-item">
-    <a class="nav-link" href="../../content/02_notes/05_class_notes.html">
+    <a class="nav-link" href="../../content/02_notes/05_class_notes.html" rel="" target="">
  <span class="menu-text">Class notes</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../content/03_other/06_links.html">
+    <a class="nav-link" href="../../content/03_other/06_links.html" rel="" target="">
  <span class="menu-text">Links</span></a>
   </li>  
 </ul>
-              <div class="quarto-toggle-container">
-                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
-              </div>
-              <div id="quarto-search" class="" title="Search"></div>
+<div class="quarto-navbar-tools ms-auto">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">Data Wrangling</h1>
 </div>
 
@@ -148,7 +167,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Joschka Schwarz </p>
+             <p>Ehssan Roshankar </p>
           </div>
   </div>
     
@@ -157,26 +176,179 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
-</header>
+</header><div class="cell" data-hash="03_data_wrangling_cache/html/unnamed-chunk-1_cc35d2a4c998cdde6b498c8214078baa">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(data.table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; 
+#&gt; Attache Paket: 'data.table'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Die folgenden Objekte sind maskiert von 'package:dplyr':
+#&gt; 
+#&gt;     between, first, last</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">library</span>(vroom)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>col_types <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="at">id =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="at">type =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="at">number =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="at">country =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb4-7"><a href="#cb4-7"></a>  <span class="at">date =</span> <span class="fu">col_date</span>(<span class="st">"%Y-%m-%d"</span>),</span>
+<span id="cb4-8"><a href="#cb4-8"></a>  <span class="at">abstract =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb4-9"><a href="#cb4-9"></a>  <span class="at">title =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb4-10"><a href="#cb4-10"></a>  <span class="at">kind =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb4-11"><a href="#cb4-11"></a>  <span class="at">num_claims =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb4-12"><a href="#cb4-12"></a>  <span class="at">filename =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb4-13"><a href="#cb4-13"></a>  <span class="at">withdrawn =</span> <span class="fu">col_double</span>()</span>
+<span id="cb4-14"><a href="#cb4-14"></a>)</span>
+<span id="cb4-15"><a href="#cb4-15"></a></span>
+<span id="cb4-16"><a href="#cb4-16"></a>patent_tbl <span class="ot">&lt;-</span> <span class="fu">vroom</span>(</span>
+<span id="cb4-17"><a href="#cb4-17"></a>            <span class="at">file       =</span> <span class="st">"C:/Users/ehsan/Desktop/DataSciece/myds/ss23-bdsb-EhssRos/03_datawrang/Patent_data_reduced/patent.tsv"</span>, </span>
+<span id="cb4-18"><a href="#cb4-18"></a>            <span class="at">delim      =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, </span>
+<span id="cb4-19"><a href="#cb4-19"></a>            <span class="at">col_types  =</span> col_types,</span>
+<span id="cb4-20"><a href="#cb4-20"></a>            <span class="at">na         =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"NULL"</span>)</span>
+<span id="cb4-21"><a href="#cb4-21"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning: The following named parsers don't match the column names: type,
+#&gt; number, country, abstract, title, kind, filename, withdrawn</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>ct <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="at">id =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="at">organization =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="at">type =</span> <span class="fu">col_number</span>()</span>
+<span id="cb6-5"><a href="#cb6-5"></a>  </span>
+<span id="cb6-6"><a href="#cb6-6"></a>)</span>
+<span id="cb6-7"><a href="#cb6-7"></a>ct2 <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb6-8"><a href="#cb6-8"></a>  <span class="at">patent_id =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb6-9"><a href="#cb6-9"></a>  <span class="at">assignee_id =</span> <span class="fu">col_character</span>()</span>
+<span id="cb6-10"><a href="#cb6-10"></a>)</span>
+<span id="cb6-11"><a href="#cb6-11"></a></span>
+<span id="cb6-12"><a href="#cb6-12"></a>assignee <span class="ot">&lt;-</span> <span class="fu">vroom</span>(</span>
+<span id="cb6-13"><a href="#cb6-13"></a>  <span class="at">file       =</span> <span class="st">"C:/Users/ehsan/Desktop/DataSciece/myds/ss23-bdsb-EhssRos/03_datawrang/Patent_data_reduced/assignee.tsv"</span>, </span>
+<span id="cb6-14"><a href="#cb6-14"></a>  <span class="at">delim      =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, </span>
+<span id="cb6-15"><a href="#cb6-15"></a>  <span class="at">col_types  =</span> ct,</span>
+<span id="cb6-16"><a href="#cb6-16"></a>  <span class="at">na         =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"NULL"</span>)</span>
+<span id="cb6-17"><a href="#cb6-17"></a>)</span>
+<span id="cb6-18"><a href="#cb6-18"></a></span>
+<span id="cb6-19"><a href="#cb6-19"></a></span>
+<span id="cb6-20"><a href="#cb6-20"></a></span>
+<span id="cb6-21"><a href="#cb6-21"></a>patent_assignee <span class="ot">&lt;-</span> <span class="fu">vroom</span>(</span>
+<span id="cb6-22"><a href="#cb6-22"></a>  <span class="at">file       =</span> <span class="st">"C:/Users/ehsan/Desktop/DataSciece/myds/ss23-bdsb-EhssRos/03_datawrang/Patent_data_reduced/patent_assignee.tsv"</span>, </span>
+<span id="cb6-23"><a href="#cb6-23"></a>  <span class="at">delim      =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, </span>
+<span id="cb6-24"><a href="#cb6-24"></a>  <span class="at">col_types  =</span> ct2,</span>
+<span id="cb6-25"><a href="#cb6-25"></a>  <span class="at">na         =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"NULL"</span>)</span>
+<span id="cb6-26"><a href="#cb6-26"></a>)</span>
+<span id="cb6-27"><a href="#cb6-27"></a></span>
+<span id="cb6-28"><a href="#cb6-28"></a>merged_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(patent_assignee, assignee, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"assignee_id"</span> <span class="ot">=</span> <span class="st">"id"</span>))</span>
+<span id="cb6-29"><a href="#cb6-29"></a>sorted_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb6-30"><a href="#cb6-30"></a>  <span class="fu">filter</span>(type <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-31"><a href="#cb6-31"></a>  <span class="fu">group_by</span>(organization) <span class="sc">%&gt;%</span></span>
+<span id="cb6-32"><a href="#cb6-32"></a>  <span class="fu">summarise</span>(<span class="at">pats =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb6-33"><a href="#cb6-33"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(pats)) </span>
+<span id="cb6-34"><a href="#cb6-34"></a></span>
+<span id="cb6-35"><a href="#cb6-35"></a></span>
+<span id="cb6-36"><a href="#cb6-36"></a><span class="co">#Question 1 answer:</span></span>
+<span id="cb6-37"><a href="#cb6-37"></a></span>
+<span id="cb6-38"><a href="#cb6-38"></a><span class="fu">head</span>(sorted_data, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
 
-<div class="callout-note callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Note
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["organization"],"name":[1],"type":["chr"],"align":["left"]},{"label":["pats"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"International Business Machines Corporation","2":"7547"},{"1":"Microsoft Corporation","2":"3165"},{"1":"Google Inc.","2":"2668"},{"1":"QUALCOMM Incorporated","2":"2597"},{"1":"Apple Inc.","2":"2201"},{"1":"General Electric Company","2":"1873"},{"1":"Hewlett-Packard Development Company, L.P.","2":"1638"},{"1":"AT&T INTELLECTUAL PROPERTY I, L.P.","2":"1625"},{"1":"Intel Corporation","2":"1616"},{"1":"GM Global Technology Operations LLC","2":"1533"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>You can delete everything in here and start fresh.</p>
+</div>
+<div class="cell" data-hash="03_data_wrangling_cache/html/unnamed-chunk-2_d23c4c14bd6058648d22816e9283af66">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>assignee_patent <span class="ot">&lt;-</span> <span class="fu">left_join</span>(assignee, patent_assignee, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span> <span class="ot">=</span> <span class="st">"assignee_id"</span>))</span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a>patent_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(assignee_patent, patent_tbl, <span class="at">by =</span> <span class="fu">c</span>( <span class="st">"patent_id"</span><span class="ot">=</span><span class="st">"id"</span>))</span>
+<span id="cb7-4"><a href="#cb7-4"></a>august_pat <span class="ot">&lt;-</span> patent_data <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">filter</span>(<span class="fu">month</span>(date) <span class="sc">==</span> <span class="dv">8</span>, <span class="fu">year</span>(date) <span class="sc">==</span> <span class="dv">2014</span>)</span>
+<span id="cb7-6"><a href="#cb7-6"></a>patent_counts <span class="ot">&lt;-</span> august_pat <span class="sc">%&gt;%</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">group_by</span>(organization) <span class="sc">%&gt;%</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>  <span class="fu">summarize</span>(<span class="at">num_patents =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb7-10"><a href="#cb7-10"></a>top_orgs <span class="ot">&lt;-</span> patent_counts <span class="sc">%&gt;%</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(num_patents)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span>
+<span id="cb7-13"><a href="#cb7-13"></a>top_orgs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["organization"],"name":[1],"type":["chr"],"align":["left"]},{"label":["num_patents"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"International Business Machines Corporation","2":"718"},{"1":"Samsung Electronics Co., Ltd.","2":"524"},{"1":"Canon Kabushiki Kaisha","2":"361"},{"1":"Microsoft Corporation","2":"337"},{"1":"Sony Corporation","2":"269"},{"1":"Google Inc.","2":"240"},{"1":"QUALCOMM Incorporated","2":"223"},{"1":"Apple Inc.","2":"222"},{"1":"Kabushiki Kaisha Toshiba","2":"213"},{"1":"LG Electronics Inc.","2":"211"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell" data-hash="03_data_wrangling_cache/html/unnamed-chunk-3_59762d95db667edbbe9aa4dc17d010b3">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>ct3 <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="at">patent_id =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="at">mainclass_id =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="at">sequence =</span> <span class="fu">col_double</span>()</span>
+<span id="cb8-5"><a href="#cb8-5"></a>)</span>
+<span id="cb8-6"><a href="#cb8-6"></a></span>
+<span id="cb8-7"><a href="#cb8-7"></a>uspc <span class="ot">&lt;-</span> <span class="fu">vroom</span>(</span>
+<span id="cb8-8"><a href="#cb8-8"></a>  <span class="at">file       =</span> <span class="st">"C:/Users/ehsan/Desktop/DataSciece/myds/ss23-bdsb-EhssRos/03_datawrang/Patent_data_reduced/uspc.tsv"</span>, </span>
+<span id="cb8-9"><a href="#cb8-9"></a>  <span class="at">delim      =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, </span>
+<span id="cb8-10"><a href="#cb8-10"></a>  <span class="at">col_types  =</span> ct3,</span>
+<span id="cb8-11"><a href="#cb8-11"></a>  <span class="at">na         =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"NULL"</span>)</span>
+<span id="cb8-12"><a href="#cb8-12"></a>)</span>
+<span id="cb8-13"><a href="#cb8-13"></a></span>
+<span id="cb8-14"><a href="#cb8-14"></a></span>
+<span id="cb8-15"><a href="#cb8-15"></a>patent_assignee_uspc <span class="ot">&lt;-</span> assignee_patent <span class="sc">%&gt;%</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a>  <span class="fu">left_join</span>(uspc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Joining with `by = join_by(patent_id)`</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning in left_join(., uspc): Detected an unexpected many-to-many relationship between `x` and `y`.
+#&gt; ℹ Row 1 of `x` matches multiple rows in `y`.
+#&gt; ℹ Row 376875 of `y` matches multiple rows in `x`.
+#&gt; ℹ If a many-to-many relationship is expected, set `relationship =
+#&gt;   "many-to-many"` to silence this warning.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>patents_top10 <span class="ot">&lt;-</span> patent_assignee_uspc <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">filter</span>( <span class="sc">!</span><span class="fu">is.na</span>(organization)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">group_by</span>(organization) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(count)) <span class="sc">%&gt;%</span>  </span>
+<span id="cb11-7"><a href="#cb11-7"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb11-8"><a href="#cb11-8"></a>patents_top10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["organization"],"name":[1],"type":["chr"],"align":["left"]},{"label":["count"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"International Business Machines Corporation","2":"20680"},{"1":"Samsung Electronics Co., Ltd.","2":"16089"},{"1":"Canon Kabushiki Kaisha","2":"10301"},{"1":"Sony Corporation","2":"9073"},{"1":"Microsoft Corporation","2":"8126"},{"1":"QUALCOMM Incorporated","2":"7837"},{"1":"Kabushiki Kaisha Toshiba","2":"7457"},{"1":"Google Inc.","2":"6827"},{"1":"LG Electronics Inc.","2":"6386"},{"1":"Panasonic Corporation","2":"6124"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">#business machines</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>top5 <span class="ot">&lt;-</span> patent_assignee_uspc <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">filter</span>( organization <span class="sc">%in%</span> patents_top10<span class="sc">$</span>organization,  <span class="sc">!</span><span class="fu">is.na</span>(mainclass_id)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>  <span class="fu">group_by</span>(mainclass_id) <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a>  <span class="fu">summarise</span>(<span class="at">count_class =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(count_class)) <span class="sc">%&gt;%</span>  </span>
+<span id="cb12-8"><a href="#cb12-8"></a>  <span class="fu">select</span>(mainclass_id) <span class="sc">%&gt;%</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb12-10"><a href="#cb12-10"></a>top5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["mainclass_id"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"257"},{"1":"455"},{"1":"370"},{"1":"348"},{"1":"709"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 
 
 
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -318,9 +490,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -385,6 +571,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {

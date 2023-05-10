@@ -1,8 +1,78 @@
 ---
 title: "Data Acquisition"
-author: "Joschka Schwarz"
+author: "Ehssan Roshankar "
 ---
 
-::: callout-note
-You can delete everything in here and start fresh.
-:::
+## import
+```{r}
+
+library(tidyverse) 
+library(rvest)     
+library(xopen)     
+library(jsonlite)  
+library(glue)      # concatenate strings
+library(stringi)   # character string/text processing
+library(httr)
+```
+
+
+
+```{r}
+
+get_weather_data <- function(location) {
+  # Construct URL for API request
+  url <- glue("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{location}",
+              "?unitGroup=metric&key=RA4VC64DQX39GT95QYTHY545B&contentType=json")
+  json_data <- fromJSON(content(GET(url), "text"), flatten = TRUE)
+  daily_data <- json_data$days
+  # Extract only datetime, tempmax, tempmin, and temp columns
+  extracted_data <- daily_data[, c("datetime", "tempmax", "tempmin", "temp")]
+  colnames(extracted_data) <- c("Datum", "Max. Temperatur", "Min. Temperatur", "Temperatur")
+  cat(paste0("Wetter ", location, " die nächsten 15 Tage:\n\n"))
+  print(as_tibble(extracted_data))
+}
+
+
+weather_data <- get_weather_data("Hamburg")
+
+
+```
+
+
+```{r}
+
+
+scrape_bikes <- function(url) {
+  page <- read_html(url)
+  bikes <- page %>% html_nodes('.catalog-category-bikes__content')
+  model_prices <- data.frame(model = character(), price = numeric())
+  for (bike in bikes) {
+    model <- bike %>% 
+      html_node('.basic-headline__title') %>% 
+      html_text(trim = TRUE)
+    price <- bike %>% 
+      html_node('.catalog-category-bikes__price-title') %>% 
+      html_text(trim = TRUE) %>% 
+      stringr::str_extract("[0-9.,]+\\,[0-9,]+|[0-9,]+") %>%   #
+      stringr::str_replace_all("[.,]", "") %>%  
+      as.numeric()
+    model_prices <- rbind(model_prices, data.frame(model = model, price = price/100))
+  }
+  return(model_prices)
+}
+
+# URLs different bike categories
+urls <- c(
+  'https://www.rosebikes.de/fahrr%C3%A4der/mtb',
+  'https://www.rosebikes.de/fahrr%C3%A4der/rennrad',
+  'https://www.rosebikes.de/fahrr%C3%A4der/gravel'
+)
+
+# Scrape bike data 
+bike_data <- map_dfr(urls, scrape_bikes, .id = 'category')
+
+bike_data <- as_tibble(bike_data)
+print(bike_data)
+```
+
+

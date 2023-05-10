@@ -1,8 +1,128 @@
 ---
 title: "Data Wrangling"
-author: "Joschka Schwarz"
+author: "Ehssan Roshankar"
 ---
 
-::: callout-note
-You can delete everything in here and start fresh.
-:::
+```{r}
+
+library(dplyr)
+library(data.table)
+library(vroom)
+col_types <- list(
+  id = col_character(),
+  type = col_character(),
+  number = col_character(),
+  country = col_character(),
+  date = col_date("%Y-%m-%d"),
+  abstract = col_character(),
+  title = col_character(),
+  kind = col_character(),
+  num_claims = col_double(),
+  filename = col_character(),
+  withdrawn = col_double()
+)
+
+patent_tbl <- vroom(
+            file       = "C:/Users/ehsan/Desktop/DataSciece/myds/ss23-bdsb-EhssRos/03_datawrang/Patent_data_reduced/patent.tsv", 
+            delim      = "\t", 
+            col_types  = col_types,
+            na         = c("", "NA", "NULL")
+        )
+        
+ct <- list(
+  id = col_character(),
+  organization = col_character(),
+  type = col_number()
+  
+)
+ct2 <- list(
+  patent_id = col_character(),
+  assignee_id = col_character()
+)
+
+assignee <- vroom(
+  file       = "C:/Users/ehsan/Desktop/DataSciece/myds/ss23-bdsb-EhssRos/03_datawrang/Patent_data_reduced/assignee.tsv", 
+  delim      = "\t", 
+  col_types  = ct,
+  na         = c("", "NA", "NULL")
+)
+
+
+
+patent_assignee <- vroom(
+  file       = "C:/Users/ehsan/Desktop/DataSciece/myds/ss23-bdsb-EhssRos/03_datawrang/Patent_data_reduced/patent_assignee.tsv", 
+  delim      = "\t", 
+  col_types  = ct2,
+  na         = c("", "NA", "NULL")
+)
+
+merged_data <- left_join(patent_assignee, assignee, by = c("assignee_id" = "id"))
+sorted_data <- merged_data %>%
+  filter(type == 2) %>% 
+  group_by(organization) %>%
+  summarise(pats = n()) %>%
+  arrange(desc(pats)) 
+
+
+#Question 1 answer:
+
+head(sorted_data, 10)
+
+
+```
+```{r}
+assignee_patent <- left_join(assignee, patent_assignee, by = c("id" = "assignee_id"))
+
+patent_data <- left_join(assignee_patent, patent_tbl, by = c( "patent_id"="id"))
+august_pat <- patent_data %>%
+  filter(month(date) == 8, year(date) == 2014)
+patent_counts <- august_pat %>%
+  group_by(organization) %>%
+  summarize(num_patents = n()) %>%
+  ungroup()
+top_orgs <- patent_counts %>%
+  arrange(desc(num_patents)) %>%
+  head(10)
+top_orgs
+
+```
+```{r}
+
+ct3 <- list(
+  patent_id = col_character(),
+  mainclass_id = col_character(),
+  sequence = col_double()
+)
+
+uspc <- vroom(
+  file       = "C:/Users/ehsan/Desktop/DataSciece/myds/ss23-bdsb-EhssRos/03_datawrang/Patent_data_reduced/uspc.tsv", 
+  delim      = "\t", 
+  col_types  = ct3,
+  na         = c("", "NA", "NULL")
+)
+
+
+patent_assignee_uspc <- assignee_patent %>%
+  left_join(uspc)
+
+
+
+patents_top10 <- patent_assignee_uspc %>%
+  filter( !is.na(organization)) %>%
+  group_by(organization) %>%
+  summarise(count = n()) %>%
+  ungroup() %>%
+  arrange(desc(count)) %>%  
+  head(n = 10)
+patents_top10
+#business machines
+top5 <- patent_assignee_uspc %>%
+  filter( organization %in% patents_top10$organization,  !is.na(mainclass_id)) %>%
+  group_by(mainclass_id) %>%
+  summarise(count_class = n()) %>%
+  ungroup() %>%
+  arrange(desc(count_class)) %>%  
+  select(mainclass_id) %>%
+  head(n = 5)
+top5
+```

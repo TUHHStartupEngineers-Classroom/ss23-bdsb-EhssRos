@@ -1,8 +1,149 @@
 ---
 title: "Data Visualization"
-author: "Joschka Schwarz"
+author: "Ehssan Roshankar"
 ---
+```{r}
+#install.packages("ggrepel")
+library(tidyverse)
+library(data.table)
+library(lubridate)
 
-::: callout-note
-You can delete everything in here and start fresh.
-:::
+library(ggplot2)
+library(ggrepel)
+
+# Load COVID-19 data from the web
+url <- "https://covid.ourworldindata.org/data/owid-covid-data.csv"
+covid_data_tbl <- fread(url)
+plot_date <- today()
+covid_data_clean <- covid_data_tbl %>%
+  mutate(year = year(date), month = month(date), day = day(date)) %>%
+  mutate(location_cleaned = case_when(
+    location == "United Kingdom" ~ "UK",
+    location == "United States" ~ "USA",
+    location == "Democratic Republic of Congo" ~ "Democratic Republic of the Congo",
+    TRUE ~ location
+  )) %>%
+  distinct() %>%
+  select(location_cleaned, date, year, month, day, total_cases) %>%
+  filter(location_cleaned %in% c("Europe", "Germany", "UK", "France", "Spain", "USA"), as.Date(date) <= plot_date)
+top_locations <- covid_data_clean %>%
+  group_by(location_cleaned) %>%
+  arrange(desc(total_cases)) %>%
+  distinct(location_cleaned) %>%
+  pull(location_cleaned)
+ggplot(data = covid_data_clean, aes(x = date, y = total_cases, color = location_cleaned, fill = location_cleaned)) +
+  geom_line(size = 1) +
+  scale_x_date(labels = scales::label_date(format = "%B '%y"), date_breaks = "1 month") +
+  scale_y_continuous(labels = scales::label_number(scale = 1e-6, suffix = "M")) +
+  labs(
+    title = str_glue("COVID-19 Cases Worldwide"),
+    subtitle = str_glue("As of {format(plot_date, format='%d/%m/%Y')}"),
+    x = "Date",
+    y = "Cumulative Cases",
+    color = "Continent / Country"
+  ) +
+  geom_label_repel(
+    aes(label = format(total_cases, big.mark = ".", decimal.mark = ",", scientific = FALSE)),
+    color = "white",
+    hjust = "inward",
+    nudge_x = -20,
+    min.segment.length = 0,
+    size = 3,
+    segment.color = "black",
+    inherit.aes = TRUE,
+    data = covid_data_clean %>%
+      filter(date == plot_date - 1, location_cleaned %in% head(top_locations, 2)),
+    show.legend = FALSE
+  ) +
+  theme(
+    legend.position = "bottom",
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    plot.title = element_text(size = 10),
+    plot.subtitle = element_text(size = 9),
+    legend.text = element_text(size = 7),
+    legend.title = element_text(size = 9),
+    legend.background = element_blank(),
+    line = element_line(color = "grey"),
+    panel.grid.major = element_line(color = "grey", size = 0.07),
+    axis.ticks = element_line(color = "grey"),
+    axis.line = element_line(color = "grey"),
+    axis.title.x = element_blank(),
+    panel.background = element_blank()
+  ) +
+  scale_color_brewer(palette = "Accent") +
+  scale_fill_brewer(palette = "Accent")
+
+
+```
+
+
+chall 2
+
+```{r}
+
+
+url <- "https://covid.ourworldindata.org/data/owid-covid-data.csv"
+covid_data_tbl <- fread(url)
+world <- map_data("world")
+
+plot_date <- as.Date("2023-01-01")  # Define the desired plot date
+
+cov_data <- covid_data_tbl %>%
+  mutate(year = year(date),
+         month = month(date),
+         day = day(date)) %>%
+  mutate(location = case_when(
+    location == "United Kingdom" ~ "UK",
+    location == "United States" ~ "USA",
+    location == "Democratic Republic of Congo" ~ "Democratic Republic of the Congo",
+    TRUE ~ location
+  )) %>%
+  distinct() %>%
+  filter(as.Date(date) == plot_date - 1) %>%
+  mutate(mortality = (total_deaths / population) * 100) %>%
+  filter(!is.na(mortality)) %>%
+  distinct() %>%
+  select(location, total_cases, total_deaths, mortality, total_deaths_per_million, new_deaths, year, month, day, date)
+
+cov_data_world <- world %>%
+  left_join(cov_data, by = c("region" = "location")) %>%
+  select(long, lat, group, order, region, subregion, mortality) %>%
+  arrange(order)
+
+low_color <- RColorBrewer::brewer.pal(n = 8, name = "YlOrRd")[1]
+high_color <- RColorBrewer::brewer.pal(n = 8, name = "YlOrRd")[8]
+
+cov_data_world %>%
+  ggplot() +
+  geom_map(aes(long, lat, map_id = region, fill = mortality),
+            map = cov_data_world,
+            color = "grey",
+            size = 0.09) +
+  scale_fill_gradient(low = low_color,
+                      high = high_color,
+                      na.value = "grey",
+                      labels = percent,
+                      breaks = c(0, 0.05, 0.1, 0.15, 0.2, 0.25)) +
+  labs(
+    title = "Distribution of COVID-19 Mortality Rate by Country",
+    subtitle = "Mortality rate is expressed as deaths per population",
+    fill = "Mortality Rate",
+    caption = str_glue("Date: {format(plot_date, format = '%m/%d/%Y')}")
+  ) +
+  theme(plot.title = element_text(size = 10),
+        plot.subtitle = element_text(size = 9),
+        legend.text = element_text(size = 7),
+        legend.title = element_text(size = 9),
+        plot.caption = element_text(size = 7),
+        axis.text = element_blank(),
+        axis.title = element_blank(),
+        line = element_line(color = "grey"),
+        panel.grid.major = element_line(color = "grey", size = 0.1),
+        axis.ticks = element_blank(),
+        axis.line = element_blank(),
+        panel.background = element_blank())
+
+
+
+
+```
